@@ -7,7 +7,7 @@ class PostsController < ApplicationController
         @posts = Post.all
       end
     end
-  
+
     def show
       if params[:author_id]
         @post = Author.find(params[:author_id]).posts.find(params[:id])
@@ -15,7 +15,7 @@ class PostsController < ApplicationController
         @post = Post.find(params[:id])
       end
     end
-  
+
     def new
       if params[:author_id] && !Author.exists?(params[:author_id])
         redirect_to authors_path, alert: "Author not found."
@@ -23,23 +23,23 @@ class PostsController < ApplicationController
         @post = Post.new(author_id: params[:author_id])
       end
     end
-  
+
     def create
       @post = Post.new(post_params)
       @post.save
       redirect_to post_path(@post)
     end
-  
+
     def update
       @post = Post.find(params[:id])
       @post.update(post_params)
       redirect_to post_path(@post)
     end
-  
+
     def edit
       @post = Post.find(params[:id])
     end
-  
+
     def edit
       if params[:author_id]
         author = Author.find_by(id: params[:author_id])
@@ -53,9 +53,9 @@ class PostsController < ApplicationController
         @post = Post.find(params[:id])
       end
     end
-  
+
     private
-  
+
     def post_params
       params.require(:post).permit(:title, :description, :author_id)
     end
